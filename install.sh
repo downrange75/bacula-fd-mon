@@ -53,4 +53,10 @@ fi
 echo "Installing bacula-fd-mon.pl and bacula-runjob.exp ..."
 cp bacula-fd-mon.pl bacula-runjob.exp /usr/bin
 
+echo "Installing bacula-fd-mon init script ..."
+cp bacula-fd-mon /etc/init.d
+
+echo "Running chkconfig on bacula-fd-mon ..."
+chkconfig --add bacula-fd-mon
+
 chmod +x /usr/bin/bacula-fd-mon.pl /usr/bin/bacula-runjob.exp
