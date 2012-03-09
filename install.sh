@@ -54,6 +54,7 @@ echo "Installing bacula-fd-mon.pl and bacula-runjob.exp ..."
 cp bacula-fd-mon.pl bacula-runjob.exp /usr/bin
 
 echo "Installing bacula-fd-mon init script ..."
+cp bacula-fd-mon.sysconfig /etc/sysconfig
 cp bacula-fd-mon /etc/init.d
 
 echo "Running chkconfig on bacula-fd-mon ..."

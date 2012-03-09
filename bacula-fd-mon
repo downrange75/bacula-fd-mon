@@ -8,9 +8,10 @@
 # source function library
 . /etc/rc.d/init.d/functions
 
+. /etc/sysconfig/bacula-fd-mon
+
 retval=0
 prog="bacula-fd-mon.pl"
-options="--daemon"
 lockfile=/var/lock/subsys/$prog
 pidfile=/var/run/$prog.pid
 
@@ -18,7 +19,7 @@ start()
 {
 	echo -n $"Starting $prog: "
 
-	$prog $options && success || failure
+	$prog $OPTIONS && success || failure
 
 	retval=$?
 
