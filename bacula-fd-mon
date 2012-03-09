@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# sshd	       Bacula client FD monitor
+# bacula-fd-mon  Bacula client FD monitor
 #
 # chkconfig: 2345 81 15
 # description: Bacula client FD monitor
