@@ -1,0 +1,75 @@
+#!/bin/bash
+#
+# sshd	       Bacula client FD monitor
+#
+# chkconfig: 2345 81 15
+# description: Bacula client FD monitor
+
+# source function library
+. /etc/rc.d/init.d/functions
+
+retval=0
+prog="bacula-fd-mon.pl"
+options="--daemon"
+lockfile=/var/lock/subsys/$prog
+pidfile=/var/run/$prog.pid
+
+start()
+{
+	echo -n $"Starting $prog: "
+
+	$prog $options && success || failure
+
+	retval=$?
+
+	[ $retval -eq 0 ] && touch $lockfile
+
+        pid=`ps -ef | grep $prog | grep -v grep | awk {'print $2'}`
+
+        echo $pid > $pidfile
+
+	echo
+
+	return $retval
+}
+
+stop()
+{
+	echo -n $"Stopping $prog: "
+
+        pid=`cat $pidfile`
+
+	if [ -n "$pid" ] ; then
+	    kill -TERM $pid && success || failure
+	else
+	    failure $"Stopping $prog"
+	fi
+
+	retval=$?
+
+	[ $retval -eq 0 ] && rm -f $lockfile
+
+	echo
+}
+
+restart() {
+	stop
+	start
+}
+
+case "$1" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	restart)
+		restart
+		;;
+	*)
+		echo $"Usage: $0 {start|stop|restart}"
+		retval=2
+esac
+
+exit $retval
